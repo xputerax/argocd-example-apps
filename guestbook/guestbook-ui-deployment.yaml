@@ -18,3 +18,25 @@ spec:
         name: guestbook-ui
         ports:
         - containerPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guestbook-redis
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: guestbook-redis
+  template:
+    metadata:
+      labels:
+        app: guestbook-redis
+    spec:
+      containers:
+      - image: docker.io/redis:7-alpine
+        name: redis
+        ports:
+        - containerPort: 6379
